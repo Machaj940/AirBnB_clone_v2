@@ -16,6 +16,7 @@ class BaseModel:
     def __str__(self):
         '''Return string represtentation of basemodel'''
         return "[" + type(self).__name__ + "]" "(" + self.id + ")" + str(self.__dict__)
+    # or return "return ("[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__))
 
     def save(self):
         '''updates the public instance attribute updated_at with the current datetime'''
