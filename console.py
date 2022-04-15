@@ -10,7 +10,7 @@ class HBNBCommand(cmd.Cmd):
     '''contains the entry point of the command interpreter'''
     PROMPT = '(hbnb) '
 
-    def do_EOF(self, line):
+    def do_EOF(self, args):
         '''End Of File'''
         return True
 
