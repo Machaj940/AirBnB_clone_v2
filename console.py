@@ -17,22 +17,23 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    '''contains the entry point of the command interpreter'''
-    PROMPT = '(hbnb) '
+    '''
+        Contains the entry point of the command interpreter.
+    '''
 
-    def do_EOF(self, args):
-        '''End Of File'''
-        return True
+    prompt = ("(hbnb) ")
 
     def do_quit(self, args):
-        '''Quit command to exit the program'''
-        raise SystemExit
+        '''
+            Quit command to exit the program.
+        '''
+        return True
 
-    def emptyline(self):
+    def do_EOF(self, args):
         '''
-            Prevents printing anything when an empty line is passed.
+            Exits after receiving the EOF signal.
         '''
-        pass
+        return True
 
     def do_create(self, args):
         '''
@@ -48,12 +49,8 @@ class HBNBCommand(cmd.Cmd):
             new_instance.save()
             print(new_instance.id)
 
-        except NameError:
+        except:
             print("** class doesn't exist **")
-
-    @property
-    def prompt(self) -> str:
-        return self.PROMPT
 
     def do_show(self, args):
         '''
@@ -175,6 +172,12 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj_value, args[2], args[3])
         obj_value.save()
 
+    def emptyline(self):
+        '''
+            Prevents printing anything when an empty line is passed.
+        '''
+        pass
+
     def do_count(self, args):
         '''
             Counts/retrieves the number of instances.
@@ -215,6 +218,8 @@ class HBNBCommand(cmd.Cmd):
             print("*** Unknown syntax:", args[0])
 
 
-if __name__ == '__main__':
-    '''Entry point for the loop'''
+if __name__ == "__main__":
+    '''
+        Entry point for the loop.
+    '''
     HBNBCommand().cmdloop()
