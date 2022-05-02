@@ -13,5 +13,9 @@ article {
 }
 
 .places {
-  clear: both;
+    clear: both;
+}
+
+.places h2 {
+    font-size: 30px;
 }
