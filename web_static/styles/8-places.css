@@ -78,6 +78,10 @@ article {
     margin-left: 20px;
 }
 
+.user {
+    text-align: left;
+}
+
 .information p {
     padding-top: 40px;
 }
