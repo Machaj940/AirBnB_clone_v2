@@ -86,3 +86,7 @@ li {
 .amenities:hover .popover {
     display: block;
 }   
+
+ul.popover {
+    opacity: 0.99 !important;
+}
