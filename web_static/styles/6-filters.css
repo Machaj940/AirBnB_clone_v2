@@ -71,11 +71,12 @@ li {
 
 .popover {
     display: none;
+    width: 96%;
     Border: 1px solid #DDDDDD;
     background-color: #FAFAFA;
     border-radius: 4px;
     margin: 17px;
-    margin-left: 0;
+    margin-left: -31px;
 }
 
 .locations:hover .popover {
