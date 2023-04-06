@@ -30,6 +30,6 @@ class BaseModel:
         self.updated_at = self.updated_at.isoformat()
 
         self.__dict__["__class__"] = self.__class__.__name__
-        return self.__dict__
+        #return self.__dict__
 
 # self.__class__.__name__ is equivalent to type(self).__name__
