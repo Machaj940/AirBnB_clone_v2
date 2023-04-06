@@ -9,6 +9,9 @@ from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
     """Test BaseModel class"""
+    def test_no_args_instantiates(self):
+        self.assertEqual(BaseModel, type(BaseModel()))
+
     def test_uuid(self):
         """test initialization of class"""
         bm1 = BaseModel()
