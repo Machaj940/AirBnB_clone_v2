@@ -17,6 +17,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(bm1, "id"))
         self.assertNotEqual(bm1.id, bm2.id)
         self.assertIsInstance(bm1.id, str)
+        self.assertIsInstance(bm1.created_at, datetime.datetime)
+        self.assertIsInstance(bm1.updated_at, datetime.datetime)
 
         bm1.to_dict()
         self.assertTrue(hasattr(bm1, "__class__"))
