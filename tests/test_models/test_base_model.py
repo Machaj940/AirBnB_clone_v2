@@ -18,6 +18,11 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(bm1.id, bm2.id)
         self.assertIsInstance(bm1.id, str)
 
+        bm1.to_dict()
+        self.assertTrue(hasattr(bm1, "__class__"))
+        self.assertIsInstance(bm1.created_at, str)
+        self.assertIsInstance(bm1.updated_at, str)
+
     def test_isoformat(self):
         """test isoformat of datettime"""
         now = datetime.datetime(2023, 4, 6, 18, 25, 31, 92221)
