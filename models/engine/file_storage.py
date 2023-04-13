@@ -35,7 +35,6 @@ class FileStorage:
         '''Deserializes the JSON file to __objects'''
         from models.base_model import BaseModel
 
-
         try:
             with open(FileStorage.__file_path, encoding="UTF8") as f:
                 FileStorage.__objects = json.load(f)
