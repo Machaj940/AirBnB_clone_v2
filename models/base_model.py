@@ -35,9 +35,7 @@ class BaseModel:
         storage.save()
 
     def to_dict(self):
-        """returns a dict containing all keys/values of __dict__
-           of the instance
-        """
+        """returns a dict containing all k/vof __dict__of the instance"""
         cp_dct = dict(self.__dict__)
         cp_dct["__class__"] = self.__class__.__name__
         cp_dct["updated_at"] = self.updated_at.isoformat()
