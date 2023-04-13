@@ -10,7 +10,13 @@ from models import storage
 class BaseModel:
     """BaseModel class for our Airbnb project"""
     def __init__(self, *args, **kwargs):
-        """BaseModel initialization with args and kwargs"""
+        '''
+            Initialize public instance attributes.
+            Attributes:
+                id: id of an instance
+                created_at: Time of instance creation
+                updated_at: Time of instance update
+        '''
         if (len(kwargs) == 0):
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -35,9 +41,7 @@ class BaseModel:
         storage.save()
 
     def to_dict(self):
-        """returns a dict containing all keys/values of __dict__
-           of the instance
-        """
+        """returns a dict containing all k/v of __dict__of the instance"""
         cp_dct = dict(self.__dict__)
         cp_dct["__class__"] = self.__class__.__name__
         cp_dct["updated_at"] = self.updated_at.isoformat()
