@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-Write a class FileStorage that serializes instances to a
+Class FileStorage that serializes instances to a
 JSON file and deserializes JSON file to instances
 '''
 
@@ -9,8 +9,7 @@ import json
 
 
 class FileStorage:
-    '''serializes instances to a JSON file and deserializes JSON file
-    to instances'''
+    '''serializes instances to a JSON file and deserializes JSON fileto inst'''
     __file_path = "file.json"
     __objects = {}
 
