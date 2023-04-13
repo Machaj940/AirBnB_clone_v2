@@ -10,13 +10,7 @@ from models import storage
 class BaseModel:
     """BaseModel class for our Airbnb project"""
     def __init__(self, *args, **kwargs):
-        '''
-            Initialize public instance attributes.
-            Attributes:
-                id: id of an instance
-                created_at: Time of instance creation
-                updated_at: Time of instance update
-        '''
+        '''Initialize public instance attributes.'''
         if (len(kwargs) == 0):
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
