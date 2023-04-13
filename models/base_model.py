@@ -41,5 +41,3 @@ class BaseModel:
         cp_dct["updated_at"] = self.updated_at.isoformat()
         cp_dct["created_at"] = self.created_at.isoformat()
         return cp_dct
-
-# self.__class__.__name__ is equivalent to type(self).__name__
