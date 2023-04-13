@@ -4,7 +4,6 @@ Write a class FileStorage that serializes instances to a
 JSON file and deserializes JSON file to instances
 '''
 import json
-from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -34,6 +33,8 @@ class FileStorage:
 
     def reload(self):
         '''Deserializes the JSON file to __objects'''
+        from models.base_model import BaseModel
+
         try:
             with open(FileStorage.__file_path, encoding="UTF8") as f:
                 FileStorage.__objects = json.load(f)
