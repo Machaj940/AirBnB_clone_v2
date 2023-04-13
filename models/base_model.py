@@ -2,8 +2,8 @@
 """This module contains the BaseModel class for our Airbnb project"""
 
 
-from datetime import datetime
 import uuid
+from datetime import datetime
 from models import storage
 
 
@@ -35,9 +35,12 @@ class BaseModel:
         storage.save()
 
     def to_dict(self):
-        """returns a dict containing all k/vof __dict__of the instance"""
+        """returns a dict containing all keys/values of __dict__
+           of the instance
+        """
         cp_dct = dict(self.__dict__)
-        cp_dct["__class__"] = self.__class__.__name__
-        cp_dct["updated_at"] = self.updated_at.isoformat()
-        cp_dct["created_at"] = self.created_at.isoformat()
-        return cp_dct
+        cp_dct['__class__'] = self.__class__.__name__
+        cp_dct['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        cp_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+
+        return (cp_dct)
