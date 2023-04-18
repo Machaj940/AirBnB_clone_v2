@@ -11,7 +11,7 @@ class BaseModel:
     """BaseModel class for our Airbnb project"""
     def __init__(self, *args, **kwargs):
         """BaseModel initialization with args and kwargs"""
-        if (len(kwargs) == 0):
+        if not kwargs or (len(kwargs) == 0):
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
