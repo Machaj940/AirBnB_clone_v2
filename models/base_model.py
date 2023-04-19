@@ -31,6 +31,11 @@ class BaseModel:
         """How BaseModel shoul be printed"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
+    def __repr__(self):
+        '''Return string representation of BaseModel class'''
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
+                                      self.id, self.__dict__))
+
     def save(self):
         """updates the instance attr updated_at with the current datetime"""
         self.updated_at = datetime.now()
