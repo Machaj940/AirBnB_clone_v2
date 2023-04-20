@@ -1,13 +1,10 @@
 #!/usr/bin/python3
-'''
-    Implementation of the State class
-'''
+"""contains the state class"""
+
 
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    '''
-        Implementation for the State.
-    '''
+    """State class"""
     name = ""
