@@ -25,6 +25,7 @@ class HBNBCommand(cmd.Cmd):
         raise SystemExit
 
     def emptyline(self):
+        """prevent printing previous code when an emptyline is passed"""
         pass
 
     def do_create(self, args):
