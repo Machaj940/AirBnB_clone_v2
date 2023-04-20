@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 '''Write a program called console.py that contains
-the entry point of the command interpreter'''
+the entry point of the command interpreter
+'''
 
 
 import cmd
@@ -14,7 +15,6 @@ from models.user import User
 class HBNBCommand(cmd.Cmd):
     '''contains the entry point of the command interpreter'''
     prompt = "(hbnb) "
-
 
     def do_EOF(self, args):
         '''End Of File'''
