@@ -27,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, args):
         '''Quit command to exit the program'''
-        raise SystemExit
+        return True
 
     def emptyline(self):
         """prevent printing previous code when an emptyline is passed"""
@@ -47,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
             new_instance.save()
             print(new_instance.id)
 
-        except NameError:
+        except:
             print("** class doesn't exist **")
 
     def do_show(self, args):
