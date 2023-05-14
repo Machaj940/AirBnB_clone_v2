@@ -1,161 +1,165 @@
+.places:before,
+.places:after {
+  content: "";
+  display: table;
+}
+
+.places:after {
+  clear: both;
+}
+
+.places {
+  clear: both;
+  *zoom: 1;
+}
+
 .places h1 {
+    text-align: left;
     font-size: 30px;
+}
+
+.places article {
+    width: 390px;
+    height: 770px;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #FF5A5F;
+    text-align: center;
+    float: left;
 }
 
 .places h2 {
     font-size: 30px;
 }
 
-article {
-    text-align: center;
-    width: 390px;
-    padding: 20px;
-    margin: 20px;
-    border: 1px solid #FF5A5F;
-    border-radius: 4px;
-    float: left;
+.places-header {
+    display: inline-block;
+    position: relative;
 }
 
-.places {
-  clear: both;
-}
-
-.price_by_night {
-    float: right;
-    color: #FF5A5F;
-    min-width: 60px;
-    height: 60px;
-    font-size: 30px;
-    border: 4px solid #FF5A5F;
-    border-radius: 50%;
-    margin-right: 20px;
+.places-header div {
+    position: absolute;
+    top: 0px;
+    right: -120px;
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
 }
 
 .price_by_night {
-    clear: both;
+    color: #FF5A5F;
+    border: 4px solid #FF5A5F;
+    border-radius: 50%;
+    min-width: 60px;
+    height: 60px;
+    font-size: 30px;
 }
 
 .information {
     height: 80px;
     border-top: 1px solid #DDDDDD;
-    border-bottom: 1px solid #DDDDDD;
-    margin-top: 50px;
+    border-bottop: 1px solid #DDDDDD;
+    margin-left: 30px;
 }
 
 .information div {
     display: inline-block;
-    margin: 0 1.5%;
-    width: 30%;
+    margin-top: 10px;
 }
 
-.max_guest {
+.information .max_guest {
     width: 100px;
-    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_group.png);
+    background-image: url("../images/guest-icon.png");
     background-repeat: no-repeat;
-    height: inherit;
-    width: inherit;
-    margin-left: 20px;
 }
 
-.number_rooms {
+.information .number_rooms {
     width: 100px;
-    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_bed.png);
+    background-image: url("../images/bedroom-icon.png");
     background-repeat: no-repeat;
-    height: inherit;
-    width: inherit;
-    margin-left: 20px;
 }
 
-.number_bathrooms {
+.information .number_bathrooms {
     width: 100px;
-    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_bath.png);
+    background-image: url("../images/bathroom-icon.png");
     background-repeat: no-repeat;
-    height: inherit;
-    width: inherit;
-    margin-left: 20px;
+}
+
+.information p {
+    margin-top: 55px;
+    margin-left: -50px;
 }
 
 .user {
     text-align: left;
-}
-
-.information p {
-    padding-top: 40px;
+    margin-top: 30px;
 }
 
 .description {
+    margin-top: 15px;
     text-align: left;
 }
 
-.places .amenities {
+/*.amen-rev {
+    display: flex;
+    flex-direction: column;
+}
+
+.amenities {
     margin-top: 40px;
-    font-size: 16px;
+    margin-left: 0px;
 }
 
 .amenities h2 {
+    font-size: 16px;
     border-bottom: 1px solid #DDDDDD;
-    text-align: left;
-    margin-top: 40px;
 }
 
 .amenities ul {
-    list-style-type: none;
-    text-align: left;
+    margin-left: -35px;
+    margin-top: 30px;
 }
 
-.amenities ul li:first-child:before {
-    content: '';
-    display: inline-block;
-    height: 24px;
-    width: 35px;
-    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_tv.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-left: -35px;
+.amenities li {
+    margin-top: 20px;
 }
 
-.amenities ul li:first-child + li:before {
-    content: '';
-    display: inline-block;
-    height: 24px;
-    width: 35px;
-    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_wifi.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-left: -35px;
-}
-
-.amenities ul li:first-child + li + li:before {
-    content: '';
-    display: inline-block;
-    height: 24px;
-    width: 35px;
-    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_pets.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-left: -35px;
+.amenities p {
+    margin-left: 100px;
 }
 
 .reviews {
     margin-top: 40px;
-    font-size: 16px;
+    text-align: left;
+}
+
+.reviews h3, p {
+    margin-left: -40px;
 }
 
 .reviews h2 {
+    font-size: 16px;
     border-bottom: 1px solid #DDDDDD;
-    text-align: left;
 }
 
-.reviews ul {
-    list-style-type: none;
-    text-align: left;
-    padding-left: 0;
+.reviews p {
+    margin-top: 0px;
 }
 
-.reviews li {
-    list-style-type: none;
-    text-align: left;
+.pets {
+    background-image: url("../images/pets-icon.png");
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
 }
+
+.tv {
+    background-image: url("../images/tv-icon.png");
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+}
+
+.wifi {
+    background-image: url("../images/wifi-icon.png");
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+}*/
