@@ -1,4 +1,4 @@
-s#!/usr/bin/python3
+#!/usr/bin/python3
 """This module contains the BaseModel class for our Airbnb project"""
 
 
