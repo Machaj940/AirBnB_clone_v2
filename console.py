@@ -1,13 +1,12 @@
 #!/usr/bin/python3
-'''Write a program called console.py that contains
-the entry point of the command interpreter
 '''
-
-
+    Implementing the console for the HBnB project.
+'''
+import re
 import cmd
 import json
 import shlex
-from models.engine.file_storage import FileStorage
+import models
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -18,20 +17,23 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    '''contains the entry point of the command interpreter'''
-    prompt = "(hbnb) "
+    '''
+        Contains the entry point of the command interpreter.
+    '''
 
-    def do_EOF(self, args):
-        '''End Of File'''
-        return True
+    prompt = ("(hbnb) ")
 
     def do_quit(self, args):
-        '''Quit command to exit the program'''
+        '''
+            Quit command to exit the program.
+        '''
         return True
 
-    def emptyline(self):
-        """prevent printing previous code when an emptyline is passed"""
-        pass
+    def do_EOF(self, args):
+        '''
+            Exits after receiving the EOF signal.
+        '''
+        return True
 
     def do_create(self, args):
         '''
@@ -42,29 +44,31 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         try:
-            args = shlex.split(args)
+            args = re.split("\s|=", args)
             new_instance = eval(args[0])()
 
-        except:
+            for idx in range(1, len(args), 2):
+                key = args[idx]
+                value = args[idx + 1]
+                try:
+                    new_instance.__getattribute__(key)
+                except AttributeError:
+                    continue
+                if re.search("^\".*\"$", value) is not None:
+                    value = value.replace("_", " ")
+                    value = value.replace("\"", "")
+                elif "." in value:
+                    value = float(value)
+                elif re.search("\d.*", value) is not None:
+                    value = int(value)
+                else:
+                    continue
+                setattr(new_instance, key, value)
+            new_instance.save()
+            print(new_instance.id)
+        except NameError:
             print("** class doesn't exist **")
             return
-
-        idx = 1
-
-        while (idx < len(args)):
-            parameter = args[idx]
-            param = parameter.split("=")
-            try:
-                obj_param = new_instance.__getattribute__(param[0])
-                if type(obj_param) == type(param[1]):
-                    setattr(new_instance, param[0], param[1])
-                else:
-                    pass
-            except ValueError:
-                pass
-            idx += 1
-        new_instance.save()
-        print(new_instance.id)
 
     def do_show(self, args):
         '''
@@ -78,7 +82,8 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-        storage = FileStorage()
+        storage = models.storage
+#        storage = FileStorage()
         storage.reload()
         obj_dict = storage.all()
         try:
@@ -107,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             return
         class_name = args[0]
         class_id = args[1]
-        storage = FileStorage()
+        storage = models.storage
         storage.reload()
         obj_dict = storage.all()
         try:
@@ -128,21 +133,24 @@ class HBNBCommand(cmd.Cmd):
             based or not on the class name.
         '''
         obj_list = []
-        storage = FileStorage()
+        storage = models.storage
         storage.reload()
-        objects = storage.all()
         try:
             if len(args) != 0:
                 eval(args)
+            if len(args) == 0:
+                objects = storage.all()
+            else:
+                objects = storage.all(args)
         except NameError:
             print("** class doesn't exist **")
             return
         for key, val in objects.items():
             if len(args) != 0:
                 if type(val) is eval(args):
-                    obj_list.append(str(val))
+                    obj_list.append(val)
             else:
-                obj_list.append(str(val))
+                obj_list.append(val)
 
         print(obj_list)
 
@@ -151,7 +159,7 @@ class HBNBCommand(cmd.Cmd):
             Update an instance based on the class name and id
             sent as args.
         '''
-        storage = FileStorage()
+        storage = models.storage
         storage.reload()
         args = shlex.split(args)
         if len(args) == 0:
@@ -186,12 +194,18 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj_value, args[2], args[3])
         obj_value.save()
 
+    def emptyline(self):
+        '''
+            Prevents printing anything when an empty line is passed.
+        '''
+        pass
+
     def do_count(self, args):
         '''
             Counts/retrieves the number of instances.
         '''
         obj_list = []
-        storage = FileStorage()
+        storage = models.storage
         storage.reload()
         objects = storage.all()
         try:
@@ -209,12 +223,15 @@ class HBNBCommand(cmd.Cmd):
         print(len(obj_list))
 
     def default(self, args):
-        '''Catches all the function names that are not expicitly defined.'''
+        '''
+            Catches all the function names that are not expicitly defined.
+        '''
         functions = {"all": self.do_all, "update": self.do_update,
                      "show": self.do_show, "count": self.do_count,
-                     "destroy": self.do_destroy}
+                     "destroy": self.do_destroy, "update": self.do_update}
         args = (args.replace("(", ".").replace(")", ".")
                 .replace('"', "").replace(",", "").split("."))
+
         try:
             cmd_arg = args[0] + " " + args[2]
             func = functions[args[1]]
@@ -223,6 +240,8 @@ class HBNBCommand(cmd.Cmd):
             print("*** Unknown syntax:", args[0])
 
 
-if __name__ == '__main__':
-    '''Entry point for the loop'''
+if __name__ == "__main__":
+    '''
+        Entry point for the loop.
+    '''
     HBNBCommand().cmdloop()
