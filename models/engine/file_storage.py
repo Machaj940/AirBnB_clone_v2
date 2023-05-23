@@ -67,6 +67,6 @@ class FileStorage:
         desired_key = obj
         for key, val in copy_storage.items():
             if val == desired_key:
-                del(obj)
+                del (obj)
                 del FileStorage.__objects[key]
                 self.save()
