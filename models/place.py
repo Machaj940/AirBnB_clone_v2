@@ -3,9 +3,11 @@
 
 
 import os
+import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship
+from models.review import Review
 
 
 class Place(BaseModel, Base):
@@ -36,3 +38,13 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+
+        @property
+        def reviews(self):
+            review_dict = models.storage.all(Review)
+            place_query = self.id
+            review_list = []
+            for k, v in review_dict.items():
+                if v.place_id == self.id:
+                    review_list.append(v)
+            return review_list
