@@ -3,22 +3,9 @@
 
 
 import os
-import models
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
+from sqlalchemy import Column, String, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship
-from models.review import Review
-from models.amenity import Amenity
-
-
-if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        association_table = Table('place_amenity', Base.metadata,
-                                  Column('place_id', String(60),
-                                         ForeignKey('places.id'),
-                                         nullable=False),
-                                  Column('amenity_id', String(60),
-                                         ForeignKey('amenities.id'),
-                                         nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -37,8 +24,6 @@ class Place(BaseModel, Base):
         longitude = Column(Float)
         amenity_ids = []
         reviews = relationship("Review", backref="place", cascade="delete")
-        amenities = relationship("Amenity", secondary=association_table,
-                                 viewonly=False)
     else:
         city_id = ""
         user_id = ""
@@ -61,24 +46,3 @@ class Place(BaseModel, Base):
                 if v.place_id == self.id:
                     review_list.append(v)
             return review_list
-
-        @property
-        def amenities(self):
-            '''
-                 Returns a list containing the amenities ids
-            '''
-            return self.amenity_ids
-
-        @amenities.setter
-        def amenities(self, obj=None):
-            '''
-                Sets the amenities ids to a list
-            '''
-            self.amenity_ids = obj.id
-            if obj.__class__.__name__ != "Amenity":
-                return
-            amenity_dict = models.storage.all(obj)
-            place_id = self.id
-            for key, val in amenity_dict.items():
-                if self.id == val.place_id:
-                    self.amenity_ids.append(val.id)
