@@ -7,6 +7,14 @@ import uuid
 import models
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
+import os
+
+
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    Base = declarative_base()
+else:
+    class Base:
+        pass
 
 
 Base = declarative_base()
@@ -14,9 +22,12 @@ Base = declarative_base()
 
 class BaseModel:
     """BaseModel class for our Airbnb project"""
-    id = Column(String(60), nullable=False, primary_key=True)
-    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        id = Column(String(60), nullable=False, primary_key=True)
+        created_at = Column(DateTime, default=datetime.utcnow(),
+                            nullable=False)
+        updated_at = Column(DateTime, default=datetime.utcnow(),
+                            nullable=False)
 
     def __init__(self, *args, **kwargs):
         """BaseModel initialization with args and kwargs"""
@@ -25,10 +36,16 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
         else:
-            kwargs["created_at"] = datetime.strptime(kwargs["created_at"],
-                                                     "%Y-%m-%dT%H:%M:%S.%f")
-            kwargs["updated_at"] = datetime.strptime(kwargs["updated_at"],
-                                                     "%Y-%m-%dT%H:%M:%S.%f")
+            try:
+                time_format = "%Y-%m-%dT%H:%M:%S.%f"
+                kwargs["created_at"] = datetime.strptime(kwargs["created_at"],
+                                                         time_format)
+                kwargs["updated_at"] = datetime.strptime(kwargs["updated_at"],
+                                                         time_format)
+            except KeyError:
+                self.id = str(uuid.uuid4())
+                self.created_at = datetime.now()
+                self.updated_at = datetime.now()
             for key, val in kwargs.items():
                 if "__class__" not in key:
                     setattr(self, key, val)
