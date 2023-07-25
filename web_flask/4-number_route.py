@@ -31,10 +31,10 @@ def hbnb_text_default(text="is cool"):
     return "Python %s" % text.replace(r'_', ' ')
 
 
-@app.route("/number/<n>", strict_slashes=False)
+@app.route("/number/<int:n>", strict_slashes=False)
 def number(n):
     ''' return HBNB '''
-    return "%i is a number" % int(n)
+    return "%d is a number" % n
 
 
 if __name__ == "__main__":
